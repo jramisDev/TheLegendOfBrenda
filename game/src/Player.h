@@ -3,13 +3,20 @@
 
 class Player :public CharacterBase {
 
+    unsigned char exp;
+    unsigned char expMax = 100;
+    unsigned char level;
+    unsigned char attributePoints;
 
     bool isMoving;
 
     Vector2 posHealthWidget;
 
-public: 
-    Player(){
+public:
+    Player() {
+        exp = 0;
+        level = 1;
+        attributePoints = 2;
         setIsPlayer(true);
         isMoving = false;
 
@@ -17,6 +24,20 @@ public:
         posHealthWidget = { WIDGET_POS_X , WIDGET_POS_Y };
     }
 
+    char getLevel() { return level; }
+
+    void setExp(char pExp) {
+        if(pExp + exp >= expMax){
+            level++;
+            attributePoints++;
+            exp = (pExp + exp) - expMax;        
+        } else {        
+            exp += pExp;
+        }
+    }
+
+    char getAttributePoints() { return attributePoints; }
+    void subtractAttributePoints() { attributePoints--; }
 
     bool getIsMoving() { return isMoving; }
     void setIsMoving(bool pIsMoving) { isMoving = pIsMoving; }
@@ -33,28 +54,15 @@ public:
         // Si el círculo está cerca de la posición del clic, detener el movimiento y restablecer la variable de movimiento
         if (CheckCollisionCircles(getCurrentPos(), getRadius(), clickPosition, 0.1f)) {
             setIsMoving(false);
-        }
-
-
-
-
-        //// Actualizar la posición del círculo gradualmente hacia la posición del clic
-        //if (circlePosition.x < clickPosition.x) circlePosition.x += player.getSpeed();
-        //else if (circlePosition.x > clickPosition.x) circlePosition.x -= player.getSpeed();
-
-        //if (circlePosition.y < clickPosition.y) circlePosition.y += player.getSpeed();
-        //else if (circlePosition.y > clickPosition.y) circlePosition.y -= player.getSpeed();
-
-        //// Si el círculo está cerca de la posición del clic, detener el movimiento y restablecer la variable de movimiento
-        //if (CheckCollisionCircles(circlePosition, circleRadius, clickPosition, 0.1f)) {
-        //    player.setIsMoving(false);
-        //}
-    
+        }    
     }
 
     void drawPlayer() {
 
+        playerImg = LoadTexture("resources/Player/player_right.png");
+
         DrawCircleV(getCurrentPos(), getRadius(), GREEN);
+        DrawTexture(playerImg, getCurrentPos().x-getRadius(), getCurrentPos().y-getRadius(), WHITE);
     
     }
 
@@ -62,12 +70,16 @@ public:
     //UI
     void drawUI() {
 
+        levelUI = LoadTexture("resources/UI/level.png");
         heartUI = LoadTexture("resources/UI/heartUI.png");
+         
+        DrawTexture(levelUI, 0, 0, BLACK);
+        DrawText("1", 17, 10, 25, BLACK);
 
         for (int i = 0; i < getHealthMax(); ++i) {
 
-            if (i > getHealth()) DrawTexture(heartUI, WIDGET_POS_X + (WIDGET_SIZE * i), WIDGET_POS_Y, BLACK);
-            else DrawTexture(heartUI, WIDGET_POS_X + (WIDGET_SIZE * i), WIDGET_POS_Y, WHITE);
+            if (i > getHealth()) DrawTexture(heartUI, 50 + WIDGET_POS_X + (WIDGET_SIZE * i), WIDGET_POS_Y, BLACK);
+            else DrawTexture(heartUI, 50 + WIDGET_POS_X + (WIDGET_SIZE * i), WIDGET_POS_Y, WHITE);
         }
 
     }
