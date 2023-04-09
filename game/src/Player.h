@@ -59,19 +59,12 @@ public:
 
     void drawPlayer() {
 
-        playerImg = LoadTexture("resources/Player/player_right.png");
-
         DrawCircleV(getCurrentPos(), getRadius(), GREEN);
-        DrawTexture(playerImg, getCurrentPos().x-getRadius(), getCurrentPos().y-getRadius(), WHITE);
+        DrawTexture(playerImg, getCurrentPos().x-getRadius()-10, getCurrentPos().y-getRadius()-10, WHITE);
     
     }
 
-
-    //UI
     void drawUI() {
-
-        levelUI = LoadTexture("resources/UI/level.png");
-        heartUI = LoadTexture("resources/UI/heartUI.png");
          
         DrawTexture(levelUI, 0, 0, BLACK);
         DrawText("1", 17, 10, 25, BLACK);

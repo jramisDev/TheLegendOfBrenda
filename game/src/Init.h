@@ -9,10 +9,10 @@
 #define WIDGET_POS_Y 5
 #define WIDGET_SIZE 40
 
-enum Screens { MENU, PLAYER_STATUS, GAME, WIN, GAMEOVER };
+enum Screens { MENU, PLAYER, GAME, END };
 enum Items { AIDKIT, ARMOR, DAMAGE_POTION, DAMAGE_SPEED, KEY };
 
-//Textures
+//START - Textures
 
 //Textures - Background
 Texture2D backgroundMain;
@@ -31,10 +31,24 @@ Texture2D playerImg;
 //Textures - Enemy
 Texture2D enemyImg;
 
+//END - Textures
 
+//Variables ventana y mousePosition
+bool globalRunning = true;
 Vector2 clickPosition = { 0.0f, 0.0f };
 
-Vector2 startCharacterPosition(bool isPlayer) {
+
+static void initApp();
+
+static void mainScreen();
+
+static void gameScreen();
+
+static void playerScreen();
+
+static void endScreen(bool isGameOver);
+
+static Vector2 startCharacterPosition(bool isPlayer) {
 
     if (isPlayer) return Vector2{ 50, SCREEN_HEIGHT / 2 };
     else 

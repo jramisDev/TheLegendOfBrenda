@@ -49,7 +49,7 @@ public:
 
     Texture2D getImg() { return img; }
 
-    void DrawCharacterBase() {
+    void drawEnemy() {
 
         DrawCircleV(getCurrentPos(), getRadius(), BLUE);
     }
