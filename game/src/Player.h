@@ -23,10 +23,21 @@ public:
         //UI
         posHealthWidget = { WIDGET_POS_X , WIDGET_POS_Y };
     }
+    Player(Texture2D pImg) {
+        exp = 0;
+        level = 1;
+        attributePoints = 2;
+        setIsPlayer(true);
+        isMoving = false;
+        setImg(pImg);
+
+        //UI
+        posHealthWidget = { WIDGET_POS_X , WIDGET_POS_Y };
+    }
 
     char getLevel() { return level; }
 
-    void setExp(char pExp) {
+    void addExp(char pExp) {
         if(pExp + exp >= expMax){
             level++;
             attributePoints++;
@@ -58,16 +69,18 @@ public:
     }
 
     void drawPlayer() {
-
         DrawCircleV(getCurrentPos(), getRadius(), GREEN);
-        DrawTexture(playerImg, getCurrentPos().x-getRadius()-10, getCurrentPos().y-getRadius()-10, WHITE);
+        DrawTexture(getImg(), getCurrentPos().x - getRadius() - 10, getCurrentPos().y - getRadius() - 10, WHITE);
     
     }
 
     void drawUI() {
+
+        //char levelAux = getLevel();
          
         DrawTexture(levelUI, 0, 0, BLACK);
-        DrawText("1", 17, 10, 25, BLACK);
+        //DrawText(level, 17, 10, 25, BLACK);
+        //DrawText("1", 17, 10, 25, BLACK);
 
         for (int i = 0; i < getHealthMax(); ++i) {
 

@@ -7,21 +7,41 @@ class Item {
 
 	Vector2 currentPos;
 
-	//Rectangle rect;
+	Texture2D img;
+
+	Rectangle rect;
 
 public:
-	Item();
-	Item(int pName) {
+	Item() {
 		exp = 10;
 		currentPos = startCharacterPosition(false);
+		img = aidKitImg;
+		rect = { currentPos.x,currentPos.y, 40, 40 };
 	};
+	Item(Texture2D pImg) {
+		exp = 10;
+		currentPos = startCharacterPosition(false);
+		rect = { currentPos.x,currentPos.y, 40, 40 };
+		img = pImg;
+	};
+
 
 	char getExp() { return exp; }
 
 	Vector2 getCurrentPos() { return currentPos; }
-	//Texture2D getImg() { return img; }
+
+	Rectangle getRectangle() { return rect; }
+
+	Texture2D getImg() { return img; }
 
 	void drawItem() {
-		DrawRectangleV(getCurrentPos(), { 40, 40 }, RED);
+		
+		DrawRectangleRec(getRectangle(), RED);
+		DrawTexture(getImg(), getCurrentPos().x, getCurrentPos().y, WHITE);
+	}
+
+	void removeItem() {
+		currentPos = { -500,-500 };
+		rect = { currentPos.x,currentPos.y, 40, 40 };
 	}
 };

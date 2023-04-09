@@ -31,6 +31,10 @@ Texture2D playerImg;
 //Textures - Enemy
 Texture2D enemyImg;
 
+//Tuextures - Items
+Texture2D aidKitImg;
+Texture2D keyImg;
+
 //END - Textures
 
 //Variables ventana y mousePosition

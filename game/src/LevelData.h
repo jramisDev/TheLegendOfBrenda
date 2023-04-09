@@ -7,7 +7,7 @@ class LevelData {
 public:
 
 	LevelData() {
-		screenActual = MENU;
+		screenActual = GAME;
 		gameOver = false;
 	}
 

@@ -21,6 +21,7 @@ public:
         isPlayer = false;
         currentPos = startCharacterPosition(false);
         radius = 25.0f;
+        img = enemyImg;
     }
     CharacterBase(Texture2D pImg) {
         speed = 2;
@@ -48,9 +49,14 @@ public:
     float getRadius() { return radius; }
 
     Texture2D getImg() { return img; }
+    void setImg(Texture2D pImg) { img = pImg; }
 
     void drawEnemy() {
 
-        DrawCircleV(getCurrentPos(), getRadius(), BLUE);
+        DrawCircleV(getCurrentPos(), getRadius(), RED);
+    }
+
+    void addHealth() {
+        if (health < healthMax) health++;
     }
 };
