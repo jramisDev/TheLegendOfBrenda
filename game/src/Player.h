@@ -53,23 +53,28 @@ public:
     bool getIsMoving() { return isMoving; }
     void setIsMoving(bool pIsMoving) { isMoving = pIsMoving; }
 
-    void movePalyer(Vector2 delta) {
+    void movePalyer() {
 
+        Vector2 movement;
+        movement.x = 0;
+        movement.y = 0;
 
-        setCurrentPosX(getCurrentPos().x + (delta.x * getSpeed()));
-        setCurrentPosY(getCurrentPos().y + (delta.y * getSpeed()));
+        if (IsKeyDown(KEY_A)) {
+            if (getCurrentPos().x >= 2)  movement.x = -1;
+        }
+        if (IsKeyDown(KEY_D)) {
+            if (getCurrentPos().x <= 698) movement.x = 1;
+        }
+        if (IsKeyDown(KEY_W)) {
+            if (getCurrentPos().y >= 2) movement.y = -1;
+        }
+        if (IsKeyDown(KEY_S)) {
+            if (getCurrentPos().y <= 385) movement.y = 1;
+        }
 
-        //// Actualizar la posición del círculo gradualmente hacia la posición del clic
-        //if (getCurrentPos().x < clickPosition.x) setCurrentPosX(getCurrentPos().x + getSpeed());
-        //else if (getCurrentPos().x > clickPosition.x) setCurrentPosX(getCurrentPos().x - getSpeed());
+        setCurrentPosX(getCurrentPos().x + (movement.x * getSpeed()));
+        setCurrentPosY(getCurrentPos().y + (movement.y * getSpeed()));
 
-        //if (getCurrentPos().y < clickPosition.y) setCurrentPosY(getCurrentPos().y + getSpeed());
-        //else if (getCurrentPos().y > clickPosition.y) setCurrentPosY(getCurrentPos().y - getSpeed());
-
-        //// Si el círculo está cerca de la posición del clic, detener el movimiento y restablecer la variable de movimiento
-        //if (CheckCollisionCircles(getCurrentPos(), getRadius(), clickPosition, 0.1f)) {
-        //    setIsMoving(false);
-        //}    
     }
 
     void drawPlayer() {

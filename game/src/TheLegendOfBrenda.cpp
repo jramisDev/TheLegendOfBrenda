@@ -12,6 +12,8 @@
 *
 ********************************************************************************************/
 
+#pragma warning(disable : 4244)
+
 #include "raylib.h"
 #include "Init.h"
 #include "LevelData.h"
@@ -70,7 +72,10 @@ int main() {
 }
 
 void initApp() {
+
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, GAME_TITLE);
+
+    SetTargetFPS(FPS);
 
     levelUI = LoadTexture("resources/UI/level.png");
     heartUI = LoadTexture("resources/UI/heartUI.png");
@@ -112,23 +117,8 @@ void gameScreen() {
 
     if (IsKeyDown(KEY_I)) game.setScreenActual(PLAYER);
 
-    Vector2 movement;
-    movement.x = 0;
-    movement.y = 0;
-
-    if (IsKeyDown(KEY_A)) {
-        if (player.getCurrentPos().x >= 2)  movement.x = -1;
-    }
-    if (IsKeyDown(KEY_D)) {
-        if (player.getCurrentPos().x <= 698) movement.x = 1;
-    }
-    if (IsKeyDown(KEY_W)) {
-        if (player.getCurrentPos().y >= 2) movement.y = -1;
-    }
-    if (IsKeyDown(KEY_S)) {
-        if (player.getCurrentPos().y <= 385) movement.y = 1;
-    }
-    player.movePalyer(movement);
+    
+    player.movePalyer();
 
 
 

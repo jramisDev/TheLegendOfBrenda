@@ -1,5 +1,7 @@
 #pragma once
 
+#define FPS 60
+
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 400
 #define GAME_TITLE "The Legend Of Brenda"

@@ -15,7 +15,7 @@ class CharacterBase {
 
 public:
     CharacterBase() {
-        speed = 2;
+        speed = 5;
         healthMax = 5;
         health = 2;
         isPlayer = false;
@@ -24,7 +24,7 @@ public:
         img = enemyImg;
     }
     CharacterBase(Texture2D pImg) {
-        speed = 2;
+        speed = 5;
         healthMax = 5;
         health = 2;
         isPlayer = false;
