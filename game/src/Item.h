@@ -36,7 +36,7 @@ public:
 
 	void drawItem() {
 		
-		DrawRectangleRec(getRectangle(), RED);
+		DrawRectangleRec(getRectangle(), WHITE);
 		DrawTexture(getImg(), getCurrentPos().x, getCurrentPos().y, WHITE);
 	}
 

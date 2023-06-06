@@ -60,15 +60,19 @@ public:
         movement.y = 0;
 
         if (IsKeyDown(KEY_A)) {
+            setImg(playerImpLeft);
             if (getCurrentPos().x >= 2)  movement.x = -1;
         }
         if (IsKeyDown(KEY_D)) {
+            setImg(playerImpRight);
             if (getCurrentPos().x <= 698) movement.x = 1;
         }
         if (IsKeyDown(KEY_W)) {
+            setImg(playerImpUp);
             if (getCurrentPos().y >= 2) movement.y = -1;
         }
         if (IsKeyDown(KEY_S)) {
+            setImg(playerImpDown);
             if (getCurrentPos().y <= 385) movement.y = 1;
         }
 

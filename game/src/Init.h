@@ -29,6 +29,10 @@ Texture2D levelUI;
 
 //Textures - Player
 Texture2D playerImg;
+Texture2D playerImpUp;
+Texture2D playerImpDown;
+Texture2D playerImpRight;
+Texture2D playerImpLeft;
 
 //Textures - Enemy
 Texture2D enemyImg;
@@ -39,9 +43,13 @@ Texture2D keyImg;
 
 //END - Textures
 
+
+
+
 //Variables ventana y mousePosition
 bool globalRunning = true;
 Vector2 clickPosition = { 0.0f, 0.0f };
+
 
 
 static void initApp();

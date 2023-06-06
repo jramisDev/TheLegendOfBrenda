@@ -25,7 +25,10 @@ LevelData game;
 
 Player player;
 //CharacterBase enemy = CharacterBase();
+
+//Items
 Item aidKit;
+Item accessKey;
 
 int main() {    
 
@@ -37,7 +40,7 @@ int main() {
 
         BeginDrawing();
 
-        ClearBackground(RAYWHITE);
+        ClearBackground(WHITE);
 
         switch (game.getScreenActual()) {
             case MENU: {
@@ -81,6 +84,11 @@ void initApp() {
     heartUI = LoadTexture("resources/UI/heartUI.png");
 
     playerImg = LoadTexture("resources/Player/player_right.png");
+    playerImpUp = LoadTexture("resources/Player/player_up.png");
+    playerImpDown = LoadTexture("resources/Player/player_down.png");
+    playerImpRight = LoadTexture("resources/Player/player_right.png");
+    playerImpLeft = LoadTexture("resources/Player/player_left.png");
+
     enemyImg = LoadTexture("resources/Player/player_left.png");
 
     aidKitImg = LoadTexture("resources/Item/aidKit.png");
@@ -90,6 +98,7 @@ void initApp() {
     player = Player(playerImg);
     //enemy = CharacterBase(enemyImg);
     aidKit = Item(aidKitImg);
+    accessKey = Item(keyImg);
 
 }
 
@@ -117,19 +126,29 @@ void gameScreen() {
 
     if (IsKeyDown(KEY_I)) game.setScreenActual(PLAYER);
 
-    
+    //Movimiento del personaje
     player.movePalyer();
 
 
-
+    //Dibujamos elemento
     player.drawUI();
     aidKit.drawItem();
+    accessKey.drawItem();
     player.drawPlayer();
+
 
     if (CheckCollisionCircleRec(player.getCurrentPos(), player.getRadius(), aidKit.getRectangle())) {
         player.addHealth();
         player.addExp(aidKit.getExp());
         aidKit.removeItem();    
+    }
+
+
+
+    if (CheckCollisionCircleRec(player.getCurrentPos(), player.getRadius(), accessKey.getRectangle())) {
+        //player.addHealth();
+        player.addExp(accessKey.getExp());
+        accessKey.removeItem();
     }
 
 }
