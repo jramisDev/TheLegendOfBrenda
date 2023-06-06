@@ -112,7 +112,25 @@ void gameScreen() {
 
     if (IsKeyDown(KEY_I)) game.setScreenActual(PLAYER);
 
-    if (player.getIsMoving()) player.movePalyer(clickPosition);
+    Vector2 movement;
+    movement.x = 0;
+    movement.y = 0;
+
+    if (IsKeyDown(KEY_A)) {
+        if (player.getCurrentPos().x >= 2)  movement.x = -1;
+    }
+    if (IsKeyDown(KEY_D)) {
+        if (player.getCurrentPos().x <= 698) movement.x = 1;
+    }
+    if (IsKeyDown(KEY_W)) {
+        if (player.getCurrentPos().y >= 2) movement.y = -1;
+    }
+    if (IsKeyDown(KEY_S)) {
+        if (player.getCurrentPos().y <= 385) movement.y = 1;
+    }
+    player.movePalyer(movement);
+
+
 
     player.drawUI();
     aidKit.drawItem();
