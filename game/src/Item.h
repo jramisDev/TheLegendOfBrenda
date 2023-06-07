@@ -11,18 +11,23 @@ class Item {
 
 	Rectangle rect;
 
+	Items item;
+
 public:
 	Item() {
 		exp = 10;
 		currentPos = startCharacterPosition(false);
 		img = aidKitImg;
 		rect = { currentPos.x,currentPos.y, 40, 40 };
+		item = {AIDKIT};
 	};
-	Item(Texture2D pImg) {
+	Item(Texture2D pImg, Items pItem) {
 		exp = 10;
 		currentPos = startCharacterPosition(false);
 		rect = { currentPos.x,currentPos.y, 40, 40 };
 		img = pImg;
+		item = pItem;
+
 	};
 
 
@@ -33,6 +38,8 @@ public:
 	Rectangle getRectangle() { return rect; }
 
 	Texture2D getImg() { return img; }
+
+	Items getItem() { return item; }
 
 	void drawItem() {
 		//DrawRectangle(getCurrentPos().x, getCurrentPos().y, 40, 40, BLACK);//SoloDebugColisiones

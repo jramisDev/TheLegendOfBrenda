@@ -14,6 +14,8 @@
 
 #pragma warning(disable : 4244)
 
+#include <iostream>
+#include <map>
 #include "raylib.h"
 #include "Init.h"
 #include "LevelData.h"
@@ -99,9 +101,9 @@ void initApp() {
     game = LevelData();
     player = Player(playerImg);
     //enemy = CharacterBase(enemyImg);
-    aidKit = Item(aidKitImg);
-    accessKey = Item(keyImg);
-    sneekers = Item(sneekersImg);
+    aidKit = Item(aidKitImg, AIDKIT);
+    accessKey = Item(keyImg, KEY);
+    sneekers = Item(sneekersImg, SNEEKERS);
 }
 
 void mainScreen() {

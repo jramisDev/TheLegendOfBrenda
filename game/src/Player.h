@@ -12,7 +12,7 @@ class Player :public CharacterBase {
 
     Vector2 posHealthWidget;
 
-    //Items bag[];
+   std::map<int, int> backpack;
 
 public:
     Player() {
@@ -106,5 +106,11 @@ public:
             else DrawTexture(heartUI, 50 + WIDGET_POS_X + (WIDGET_SIZE * i), WIDGET_POS_Y, WHITE);
         }
 
+    }
+
+    void addItemToBackpack(int pItem, int pQuantity) {
+
+        backpack.insert(pItem, pQuantity);
+    
     }
 };

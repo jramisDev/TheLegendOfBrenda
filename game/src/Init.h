@@ -12,7 +12,7 @@
 #define WIDGET_SIZE 40
 
 enum Screens { MENU, PLAYER, GAME, END };
-enum Items { AIDKIT, ARMOR, DAMAGE_POTION, DAMAGE_SPEED, KEY };
+enum Items { AIDKIT, SNEEKERS, KEY };
 
 //START - Textures
 
