@@ -12,6 +12,8 @@ class Player :public CharacterBase {
 
     Vector2 posHealthWidget;
 
+    //Items bag[];
+
 public:
     Player() {
         exp = 0;
@@ -76,14 +78,17 @@ public:
             if (getCurrentPos().y <= 385) movement.y = 1;
         }
 
-        setCurrentPosX(getCurrentPos().x + (movement.x * getSpeed()));
-        setCurrentPosY(getCurrentPos().y + (movement.y * getSpeed()));
+        Vector2 actualPosition = { getCurrentPos().x + (movement.x * getSpeed()) , getCurrentPos().y + (movement.y * getSpeed()) };
+
+        setCurrentPosX(actualPosition.x);
+        setCurrentPosY(actualPosition.y);
+        setRectangle({ getCurrentPos().x, getCurrentPos().y, 70, 70 });
 
     }
 
     void drawPlayer() {
-        DrawCircleV(getCurrentPos(), getRadius(), GREEN);
-        DrawTexture(getImg(), getCurrentPos().x - getRadius() - 10, getCurrentPos().y - getRadius() - 10, WHITE);
+        //DrawRectangleRec(getRectangle(), RED); //SoloDebugColisiones
+        DrawTexture(getImg(), getCurrentPos().x, getCurrentPos().y, WHITE);
     
     }
 

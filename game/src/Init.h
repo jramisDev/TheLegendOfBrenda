@@ -40,16 +40,15 @@ Texture2D enemyImg;
 //Tuextures - Items
 Texture2D aidKitImg;
 Texture2D keyImg;
+Texture2D sneekersImg;
 
 //END - Textures
-
 
 
 
 //Variables ventana y mousePosition
 bool globalRunning = true;
 Vector2 clickPosition = { 0.0f, 0.0f };
-
 
 
 static void initApp();

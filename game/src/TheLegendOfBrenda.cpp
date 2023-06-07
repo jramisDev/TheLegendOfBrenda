@@ -29,6 +29,7 @@ Player player;
 //Items
 Item aidKit;
 Item accessKey;
+Item sneekers;
 
 int main() {    
 
@@ -93,13 +94,14 @@ void initApp() {
 
     aidKitImg = LoadTexture("resources/Item/aidKit.png");
     keyImg = LoadTexture("resources/Item/key.png");
+    sneekersImg = LoadTexture("resources/Item/zapatillas.png");
 
     game = LevelData();
     player = Player(playerImg);
     //enemy = CharacterBase(enemyImg);
     aidKit = Item(aidKitImg);
     accessKey = Item(keyImg);
-
+    sneekers = Item(sneekersImg);
 }
 
 void mainScreen() {
@@ -134,21 +136,30 @@ void gameScreen() {
     player.drawUI();
     aidKit.drawItem();
     accessKey.drawItem();
+    sneekers.drawItem();
     player.drawPlayer();
 
 
-    if (CheckCollisionCircleRec(player.getCurrentPos(), player.getRadius(), aidKit.getRectangle())) {
+    //Colision vida
+    if (CheckCollisionRecs(player.getRectangle(), aidKit.getRectangle())) {
         player.addHealth();
         player.addExp(aidKit.getExp());
         aidKit.removeItem();    
     }
 
-
-
-    if (CheckCollisionCircleRec(player.getCurrentPos(), player.getRadius(), accessKey.getRectangle())) {
+    //Colision llave
+    if (CheckCollisionRecs(player.getRectangle(), accessKey.getRectangle())) {
         //player.addHealth();
         player.addExp(accessKey.getExp());
         accessKey.removeItem();
+    }
+
+    //Colision zapatillas
+
+    if (CheckCollisionRecs(player.getRectangle(), sneekers.getRectangle())) {
+        player.setSpeed(player.getSpeed()*2);
+        player.addExp(sneekers.getExp());
+        sneekers.removeItem();
     }
 
 }

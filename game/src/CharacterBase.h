@@ -9,27 +9,29 @@ class CharacterBase {
     bool isPlayer;
 
     Vector2 currentPos;
-    float radius;
 
     Texture2D img;
 
+    Rectangle rect;
+
 public:
     CharacterBase() {
-        speed = 5;
+        speed = 2;
         healthMax = 5;
         health = 2;
         isPlayer = false;
         currentPos = startCharacterPosition(false);
-        radius = 25.0f;
+        rect = { currentPos.x,currentPos.y, 40, 40 };
         img = enemyImg;
+
     }
     CharacterBase(Texture2D pImg) {
-        speed = 5;
+        speed = 2;
         healthMax = 5;
         health = 2;
         isPlayer = false;
         currentPos = startCharacterPosition(false);
-        radius = 25.0f;
+        rect = { currentPos.x,currentPos.y, 40, 40 };
         img = pImg;
     }
 
@@ -46,14 +48,15 @@ public:
     void setCurrentPosX(float pNewPosition) { currentPos.x = pNewPosition; }
     void setCurrentPosY(float pNewPosition) { currentPos.y = pNewPosition; }
 
-    float getRadius() { return radius; }
+    Rectangle getRectangle() { return rect; }    
+    void setRectangle(Rectangle pRectangle) { rect = pRectangle; }
 
     Texture2D getImg() { return img; }
     void setImg(Texture2D pImg) { img = pImg; }
 
     void drawEnemy() {
 
-        DrawCircleV(getCurrentPos(), getRadius(), RED);
+//        DrawCircleV(getCurrentPos(), getRadius(), RED);
     }
 
     void addHealth() {

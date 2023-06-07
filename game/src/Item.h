@@ -35,8 +35,7 @@ public:
 	Texture2D getImg() { return img; }
 
 	void drawItem() {
-		
-		DrawRectangleRec(getRectangle(), WHITE);
+		//DrawRectangle(getCurrentPos().x, getCurrentPos().y, 40, 40, BLACK);//SoloDebugColisiones
 		DrawTexture(getImg(), getCurrentPos().x, getCurrentPos().y, WHITE);
 	}
 
