@@ -61,6 +61,8 @@ static void playerScreen();
 
 static void endScreen(bool isGameOver);
 
+static void checkCollisions();
+
 static Vector2 startCharacterPosition(bool isPlayer) {
 
     if (isPlayer) return Vector2{ 50, SCREEN_HEIGHT / 2 };

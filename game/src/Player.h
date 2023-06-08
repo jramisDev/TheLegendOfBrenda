@@ -21,19 +21,18 @@ public:
         exp = 0;
         level = 1;
         attributePoints = 2;
-        setIsPlayer(true);
         isMoving = false;
 
         //UI
         posHealthWidget = { WIDGET_POS_X , WIDGET_POS_Y };
     }
-    Player(Texture2D pImg) {
+    Player(Texture2D pImg, char pDamage) {
         exp = 0;
         level = 1;
         attributePoints = 2;
-        setIsPlayer(true);
         isMoving = false;
         setImg(pImg);
+        setDamage(pDamage);
 
         //UI
         posHealthWidget = { WIDGET_POS_X , WIDGET_POS_Y };

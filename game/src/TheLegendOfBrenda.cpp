@@ -98,7 +98,7 @@ void initApp() {
     sneekersImg = LoadTexture("resources/Item/zapatillas.png");
 
     game = LevelData();
-    player = Player(playerImg);
+    player = Player(playerImg, 1);
     //enemy = CharacterBase(enemyImg);
     aidKit = Item(aidKitImg, AIDKIT);
     accessKey = Item(keyImg, KEY);
@@ -140,31 +140,8 @@ void gameScreen() {
     sneekers.drawItem();
     player.drawPlayer();
 
-
-    //Colision vida
-    if (CheckCollisionRecs(player.getRectangle(), aidKit.getRectangle())) {
-        player.addHealth();
-        player.addExp(aidKit.getExp());
-        aidKit.removeItem();
-        player.dropItemToBackpack(SNEEKERS);
-    }
-
-    //Colision llave
-    if (CheckCollisionRecs(player.getRectangle(), accessKey.getRectangle())) {
-        player.addExp(accessKey.getExp());
-        player.addItemToBackpack(KEY,1);
-        accessKey.removeItem();
-    }
-
-    //Colision zapatillas
-    if (CheckCollisionRecs(player.getRectangle(), sneekers.getRectangle())) {
-        player.setSpeed(player.getSpeed()*2);
-        player.addItemToBackpack(SNEEKERS, 1);
-        player.addExp(sneekers.getExp());
-        sneekers.removeItem();
-        
-    }
-
+    //Gestionamos las colisiones con los diferentes elementos
+    checkCollisions();
 }
 
 void playerScreen() {
@@ -189,4 +166,31 @@ void endScreen(bool isGameOver) {
 
 
     return;
+}
+
+void checkCollisions() {
+
+    //Colision vida
+    if (CheckCollisionRecs(player.getRectangle(), aidKit.getRectangle())) {
+        player.addHealth();
+        player.addExp(aidKit.getExp());
+        aidKit.removeItem();
+        player.dropItemToBackpack(SNEEKERS);
+    }
+
+    //Colision llave
+    if (CheckCollisionRecs(player.getRectangle(), accessKey.getRectangle())) {
+        player.addExp(accessKey.getExp());
+        player.addItemToBackpack(KEY, 1);
+        accessKey.removeItem();
+    }
+
+    //Colision zapatillas
+    if (CheckCollisionRecs(player.getRectangle(), sneekers.getRectangle())) {
+        player.setSpeed(player.getSpeed() * 2);
+        player.addItemToBackpack(SNEEKERS, 1);
+        player.addExp(sneekers.getExp());
+        sneekers.removeItem();
+
+    }
 }

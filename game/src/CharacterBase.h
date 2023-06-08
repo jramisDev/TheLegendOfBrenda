@@ -6,7 +6,9 @@ class CharacterBase {
     unsigned char speed;
     unsigned char health;
     unsigned char healthMax;
-    bool isPlayer;
+
+    unsigned char damage;
+
 
     Vector2 currentPos;
 
@@ -18,21 +20,21 @@ public:
     CharacterBase() {
         speed = 2;
         healthMax = 5;
-        health = 2;
-        isPlayer = false;
+        health = healthMax;
         currentPos = startCharacterPosition(false);
         rect = { currentPos.x,currentPos.y, 40, 40 };
         img = enemyImg;
+        damage = 1;
 
     }
-    CharacterBase(Texture2D pImg) {
+    CharacterBase(Texture2D pImg, char pDamage) {
         speed = 2;
         healthMax = 5;
-        health = 2;
-        isPlayer = false;
+        health = healthMax;
         currentPos = startCharacterPosition(false);
         rect = { currentPos.x,currentPos.y, 40, 40 };
         img = pImg;
+        damage = pDamage;
     }
 
     char getSpeed() { return speed; }
@@ -41,8 +43,8 @@ public:
     char getHealthMax() { return healthMax; }
     char getHealth() { return health; }
 
-    bool getIsPlayer() { return isPlayer; }
-    void setIsPlayer(bool pIsPlayer) { isPlayer = pIsPlayer; }
+    char getDamage() { return damage; }
+    void setDamage(char pDamage) { damage = pDamage; }
 
     Vector2 getCurrentPos() { return currentPos; }
     void setCurrentPosX(float pNewPosition) { currentPos.x = pNewPosition; }
