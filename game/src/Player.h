@@ -1,5 +1,7 @@
 #pragma once
 #include "raylib.h"
+#include <iostream>
+#include <map>
 
 class Player :public CharacterBase {
 
@@ -12,7 +14,7 @@ class Player :public CharacterBase {
 
     Vector2 posHealthWidget;
 
-   std::map<int, int> backpack;
+    std::map<Items, int> backpack;
 
 public:
     Player() {
@@ -108,9 +110,27 @@ public:
 
     }
 
-    void addItemToBackpack(int pItem, int pQuantity) {
+    void addItemToBackpack(Items pItem, int pQuantity) {
+        
+        backpack.insert(std::make_pair(pItem, pQuantity));      
 
-        backpack.insert(pItem, pQuantity);
+        //debugMap();
+    }
+
+    void dropItemToBackpack(Items pItem){
+
+        backpack.erase(pItem);
+
+        //debugMap();
+    }
+
+    //Solo para pintar logs
+    void debugMap() {
+
+        std::cout << "KEY\tELEMENT\n";
+        for (auto itr = backpack.begin(); itr != backpack.end(); ++itr) {
+            std::cout << itr->first << '\t' << itr->second << '\n';
+        }
     
     }
 };

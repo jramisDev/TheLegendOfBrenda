@@ -14,8 +14,7 @@
 
 #pragma warning(disable : 4244)
 
-#include <iostream>
-#include <map>
+
 #include "raylib.h"
 #include "Init.h"
 #include "LevelData.h"
@@ -146,22 +145,24 @@ void gameScreen() {
     if (CheckCollisionRecs(player.getRectangle(), aidKit.getRectangle())) {
         player.addHealth();
         player.addExp(aidKit.getExp());
-        aidKit.removeItem();    
+        aidKit.removeItem();
+        player.dropItemToBackpack(SNEEKERS);
     }
 
     //Colision llave
     if (CheckCollisionRecs(player.getRectangle(), accessKey.getRectangle())) {
-        //player.addHealth();
         player.addExp(accessKey.getExp());
+        player.addItemToBackpack(KEY,1);
         accessKey.removeItem();
     }
 
     //Colision zapatillas
-
     if (CheckCollisionRecs(player.getRectangle(), sneekers.getRectangle())) {
         player.setSpeed(player.getSpeed()*2);
+        player.addItemToBackpack(SNEEKERS, 1);
         player.addExp(sneekers.getExp());
         sneekers.removeItem();
+        
     }
 
 }
