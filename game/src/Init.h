@@ -13,15 +13,15 @@
 
 enum Screens { MENU, PLAYER, GAME, END };
 enum Items { AIDKIT, SNEEKERS, KEY };
+enum Mapas { FUERA_MURALLAS, MURALLAS, DENTRO_CASTILLO, SALA_TRONO };
 
 //START - Textures
 
-//Textures - Background
-Texture2D backgroundMain;
-Texture2D backgroundGame;
-Texture2D backgroundPlayer;
-Texture2D backgroundWin;
-Texture2D backgroundGameOver;
+//Textures - Mappas
+Texture2D mapaFueraMurallas;
+Texture2D mapaMurallas;
+Texture2D mapaDentroCastillo;
+Texture2D mapaSalaTrono;
 
 //Textures - UI
 Texture2D heartUI;
@@ -46,6 +46,9 @@ Texture2D sneekersImg;
 
 int framesCounter = 0;
 
+Screens actualScreen = GAME;
+Mapas actualLevel = MURALLAS;
+
 //Variables ventana y mousePosition
 bool globalRunning = true;
 Vector2 clickPosition = { 0.0f, 0.0f };
@@ -59,7 +62,7 @@ static void gameScreen();
 
 static void playerScreen();
 
-static void endScreen(bool isGameOver);
+static void endScreen();
 
 static void checkCollisions();
 

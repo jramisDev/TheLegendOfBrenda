@@ -10,7 +10,7 @@ class Player :public CharacterBase {
     unsigned char level;
     unsigned char attributePoints;
 
-    bool isMoving;
+    bool isGameOver = false;
 
     Vector2 posHealthWidget;
 
@@ -21,7 +21,6 @@ public:
         exp = 0;
         level = 1;
         attributePoints = 2;
-        isMoving = false;
 
         //UI
         posHealthWidget = { WIDGET_POS_X , WIDGET_POS_Y };
@@ -30,7 +29,6 @@ public:
         exp = 0;
         level = 1;
         attributePoints = 2;
-        isMoving = false;
         setImg(pImg);
         setDamage(pDamage);
 
@@ -53,8 +51,8 @@ public:
     char getAttributePoints() { return attributePoints; }
     void subtractAttributePoints() { attributePoints--; }
 
-    bool getIsMoving() { return isMoving; }
-    void setIsMoving(bool pIsMoving) { isMoving = pIsMoving; }
+    bool getIsGameOver() { return isGameOver; }
+    void setGameOver(bool pIsGameOver) { isGameOver = pIsGameOver; }
 
     void movePalyer() {
 
