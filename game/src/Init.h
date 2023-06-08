@@ -35,7 +35,7 @@ Texture2D playerImpRight;
 Texture2D playerImpLeft;
 
 //Textures - Enemy
-Texture2D enemyImg;
+Texture2D trapImg;
 
 //Tuextures - Items
 Texture2D aidKitImg;
@@ -44,7 +44,7 @@ Texture2D sneekersImg;
 
 //END - Textures
 
-
+int framesCounter = 0;
 
 //Variables ventana y mousePosition
 bool globalRunning = true;

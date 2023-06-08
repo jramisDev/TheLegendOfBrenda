@@ -14,7 +14,7 @@
 
 #pragma warning(disable : 4244)
 
-
+#include <iostream>
 #include "raylib.h"
 #include "Init.h"
 #include "LevelData.h"
@@ -25,7 +25,7 @@
 LevelData game;
 
 Player player;
-//CharacterBase enemy = CharacterBase();
+CharacterBase enemy = CharacterBase();
 
 //Items
 Item aidKit;
@@ -37,6 +37,8 @@ int main() {
     initApp();
 
     while (globalRunning) {
+
+        framesCounter++;
 
         if (WindowShouldClose()) globalRunning = false;
 
@@ -91,7 +93,7 @@ void initApp() {
     playerImpRight = LoadTexture("resources/Player/player_right.png");
     playerImpLeft = LoadTexture("resources/Player/player_left.png");
 
-    enemyImg = LoadTexture("resources/Player/player_left.png");
+    trapImg = LoadTexture("resources/Enemy/trap.png");
 
     aidKitImg = LoadTexture("resources/Item/aidKit.png");
     keyImg = LoadTexture("resources/Item/key.png");
@@ -99,7 +101,7 @@ void initApp() {
 
     game = LevelData();
     player = Player(playerImg, 1);
-    //enemy = CharacterBase(enemyImg);
+    enemy = CharacterBase(trapImg,1,1);
     aidKit = Item(aidKitImg, AIDKIT);
     accessKey = Item(keyImg, KEY);
     sneekers = Item(sneekersImg, SNEEKERS);
@@ -135,6 +137,7 @@ void gameScreen() {
 
     //Dibujamos elemento
     player.drawUI();
+    enemy.drawEnemy();
     aidKit.drawItem();
     accessKey.drawItem();
     sneekers.drawItem();
@@ -175,7 +178,6 @@ void checkCollisions() {
         player.addHealth();
         player.addExp(aidKit.getExp());
         aidKit.removeItem();
-        player.dropItemToBackpack(SNEEKERS);
     }
 
     //Colision llave
@@ -191,6 +193,16 @@ void checkCollisions() {
         player.addItemToBackpack(SNEEKERS, 1);
         player.addExp(sneekers.getExp());
         sneekers.removeItem();
+    }
 
+    if (framesCounter >= 30) {
+
+        //Colision trampas
+        if (CheckCollisionRecs(player.getRectangle(), enemy.getRectangle())) {
+            player.removeHealth(1);
+        }
+
+
+        framesCounter = 0;
     }
 }

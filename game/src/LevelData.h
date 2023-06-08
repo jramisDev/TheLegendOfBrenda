@@ -4,6 +4,8 @@ class LevelData {
 
 	bool gameOver = false;
 
+
+
 public:
 
 	LevelData() {

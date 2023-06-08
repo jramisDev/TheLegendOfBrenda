@@ -22,17 +22,16 @@ public:
         healthMax = 5;
         health = healthMax;
         currentPos = startCharacterPosition(false);
-        rect = { currentPos.x,currentPos.y, 40, 40 };
-        img = enemyImg;
+        rect = { currentPos.x,currentPos.y, 30, 30 };
         damage = 1;
 
     }
-    CharacterBase(Texture2D pImg, char pDamage) {
+    CharacterBase(Texture2D pImg, char pDamage, char pHealthMax) {
         speed = 2;
-        healthMax = 5;
-        health = healthMax;
+        healthMax = pHealthMax;
+        health = pHealthMax;
         currentPos = startCharacterPosition(false);
-        rect = { currentPos.x,currentPos.y, 40, 40 };
+        rect = { currentPos.x,currentPos.y, 30, 30 };
         img = pImg;
         damage = pDamage;
     }
@@ -58,10 +57,20 @@ public:
 
     void drawEnemy() {
 
-//        DrawCircleV(getCurrentPos(), getRadius(), RED);
+        DrawRectangleRec(rect,RED);
+        DrawTexture(getImg(), getCurrentPos().x, getCurrentPos().y, WHITE);
     }
 
     void addHealth() {
         if (health < healthMax) health++;
+    }
+
+    void removeHealth(char pHealtErease) {
+        std::cout << int(health) << "MUERTO\n";
+                
+        if (health > 0) health -= pHealtErease;
+        else std::cout << "MUERTO\n";
+
+        std::cout << int(health) << "MUERTO\n";
     }
 };
