@@ -18,9 +18,9 @@ public:
 		rect = { currentPos.x,currentPos.y, 40, 40 };
 		item = {AIDKIT};
 	};
-	Item(Texture2D pImg, Items pItem) {
+	Item(Texture2D pImg, Items pItem, Vector2 pCurrentPos) {
 		exp = 10;
-		currentPos = startCharacterPosition();
+		currentPos = pCurrentPos;;
 		rect = { currentPos.x,currentPos.y, 40, 40 };
 		img = pImg;
 		item = pItem;

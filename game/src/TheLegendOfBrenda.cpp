@@ -24,7 +24,8 @@
 
 Player player;
 LevelData* game = new LevelData[4];
-CharacterBase enemy = CharacterBase();
+CharacterBase trapOne = CharacterBase();
+CharacterBase trapTwo = CharacterBase();
 
 //Items
 Item aidKit;
@@ -109,10 +110,11 @@ void initApp() {
     game[3] = LevelData(mapaSalaTrono, "Sala Trono");
 
     player = Player(playerImg, 1, {100, 150});
-    enemy = CharacterBase(trapImg,1,1);
-    aidKit = Item(aidKitImg, AIDKIT);
-    accessKey = Item(keyImg, KEY);
-    sneekers = Item(sneekersImg, SNEEKERS);
+    trapOne = CharacterBase(trapImg,1,1);
+    trapTwo = CharacterBase(trapImg, 1, 1);
+    aidKit = Item(aidKitImg, AIDKIT, startCharacterPosition());
+    accessKey = Item(keyImg, KEY, startCharacterPosition());
+    sneekers = Item(sneekersImg, SNEEKERS, startCharacterPosition());
 }
 
 void mainScreen() {
@@ -147,7 +149,8 @@ void gameScreen() {
 
     dropItems();
 
-    enemy.drawEnemy();
+    trapOne.drawEnemy();
+    trapTwo.drawEnemy();
     player.drawPlayer();
 
     //Gestionamos las colisiones con los diferentes elementos
@@ -181,39 +184,44 @@ void checkCollisions() {
 
     //Colision vida
     if (CheckCollisionRecs(player.getRectangle(), aidKit.getRectangle())) {
-       // if (checkItemInMap(AIDKIT)) {
+        if (checkItemInMap(AIDKIT)) {
             player.addHealth();
             player.addExp(aidKit.getExp());
             aidKit.removeItem();
             std::cout << "Cojo vida";
-        //}
+        }
     }
 
     //Colision llave
     if (CheckCollisionRecs(player.getRectangle(), accessKey.getRectangle())) {
-        //if (checkItemInMap(AIDKIT)) {
+        if (checkItemInMap(KEY)) {
             player.addExp(accessKey.getExp());
             player.addItemToBackpack(KEY, 1);
             accessKey.removeItem();
             std::cout << "Cojo llave";
-        //}
+        }
     }
 
     //Colision zapatillas
     if (CheckCollisionRecs(player.getRectangle(), sneekers.getRectangle())) {
-        //if (checkItemInMap(AIDKIT)) {
+        if (checkItemInMap(SNEEKERS)) {
             player.setSpeed(player.getSpeed() * 2);
             player.addItemToBackpack(SNEEKERS, 1);
             player.addExp(sneekers.getExp());
             sneekers.removeItem();
-        //}
+        }
     }
 
-    if (framesCounter >= 30) {
+    if (framesCounter >= 15) {
 
         //Colision trampas
-        if (CheckCollisionRecs(player.getRectangle(), enemy.getRectangle())) {
-            player.removeHealth(1);
+        if (CheckCollisionRecs(player.getRectangle(), trapOne.getRectangle())) {
+            player.removeHealth(trapOne.getDamage());
+        }
+
+        //Colision trampas
+        if (CheckCollisionRecs(player.getRectangle(), trapTwo.getRectangle())) {
+            player.removeHealth(trapTwo.getDamage());
         }
 
         framesCounter = 0;
@@ -265,30 +273,23 @@ void dropItems() {
 
 bool checkItemInMap(Items pItem) {
 
-    bool check = false;
-
-
     switch (actualLevel) {
     case FUERA_MURALLAS:
-        if (pItem == SNEEKERS) check = true;
-        std::cout << "\nNivel 0 Fuera murallas: " << int(actualLevel) << " Item: " << int(pItem) << " return: " << check;
+        if (pItem == SNEEKERS) return true;
         break;
     case MURALLAS:
-        if (pItem == AIDKIT) check =  true;
-        std::cout << "\nNivel 1 Murallas: " << int(actualLevel) << " Item: " << int(pItem) << " return: " << check;
+        if (pItem == AIDKIT) return true;
         break;
     case DENTRO_CASTILLO:
-        if (pItem == KEY) check =  true;
-        std::cout << "\nNivel 2 Dentro Castillo: " << int(actualLevel) << " Item: " << int(pItem) << " return: " << check;
+        if (pItem == KEY) return true;
         break;
     case SALA_TRONO:
-        if (pItem == AIDKIT) check = true;
-        std::cout << "\nNivel 3 Sala trono: " << int(actualLevel) << " Item: " << int(pItem) << " return: " << check;
+        if (pItem == AIDKIT) return true;
         break;
     default:
-        return check = false;
+        return false;
         break;
     }
 
-    return check;
+    return false;
 }
