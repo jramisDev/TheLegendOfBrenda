@@ -3,7 +3,6 @@ class LevelData {
 	char* nombreMapa;
 	Texture2D img;
 
-	//Vector2 currentPos;
 	Rectangle rect;
 
 public:
@@ -11,7 +10,6 @@ public:
 	LevelData(Texture2D pImg, char* pNombre) {
 		img = pImg;
 		nombreMapa = pNombre;
-		//rect = { currentPos.x,currentPos.y, 50, 100 };
 		rect = { 750,100, 50, 200 };
 	}
 
@@ -34,5 +32,4 @@ public:
 	void drawExit(){
 		DrawRectangleRec(rect, BLUE);
 	}
-
 };

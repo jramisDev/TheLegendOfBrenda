@@ -1,6 +1,3 @@
-#pragma once
-#include "raylib.h"
-
 class Item {
 
 	unsigned char exp;

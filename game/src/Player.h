@@ -1,6 +1,3 @@
-#pragma once
-#include "raylib.h"
-#include <iostream>
 #include <map>
 
 class Player :public CharacterBase {

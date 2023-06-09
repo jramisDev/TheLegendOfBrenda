@@ -22,8 +22,6 @@
 #include "Player.h"
 #include "Item.h"
 
-
-
 Player player;
 LevelData* game = new LevelData[4];
 CharacterBase enemy = CharacterBase();
@@ -291,8 +289,6 @@ bool checkItemInMap(Items pItem) {
         return check = false;
         break;
     }
-
-    
 
     return check;
 }

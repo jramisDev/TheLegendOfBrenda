@@ -1,5 +1,3 @@
-#pragma once
-
 #define FPS 60
 
 #define SCREEN_WIDTH 800
@@ -46,7 +44,7 @@ Texture2D sneekersImg;
 
 int framesCounter = 0;
 
-Screens actualScreen = GAME;
+Screens actualScreen = MENU;
 Mapas actualLevel = FUERA_MURALLAS;
 
 //Variables ventana y mousePosition
