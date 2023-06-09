@@ -21,7 +21,7 @@ public:
         speed = 2;
         healthMax = 5;
         health = healthMax;
-        currentPos = startCharacterPosition(false);
+        currentPos = startCharacterPosition();
         rect = { currentPos.x,currentPos.y, 30, 30 };
         damage = 1;
 
@@ -30,7 +30,7 @@ public:
         speed = 2;
         healthMax = pHealthMax;
         health = pHealthMax;
-        currentPos = startCharacterPosition(false);
+        currentPos = startCharacterPosition();
         rect = { currentPos.x,currentPos.y, 30, 30 };
         img = pImg;
         damage = pDamage;
@@ -46,8 +46,10 @@ public:
     void setDamage(char pDamage) { damage = pDamage; }
 
     Vector2 getCurrentPos() { return currentPos; }
-    void setCurrentPosX(float pNewPosition) { currentPos.x = pNewPosition; }
-    void setCurrentPosY(float pNewPosition) { currentPos.y = pNewPosition; }
+    void setCurrentPos(Vector2 pNewPosition) { 
+        currentPos.x = pNewPosition.x; 
+        currentPos.y = pNewPosition.y;
+    }
 
     Rectangle getRectangle() { return rect; }    
     void setRectangle(Rectangle pRectangle) { rect = pRectangle; }
@@ -57,7 +59,7 @@ public:
 
     void drawEnemy() {
 
-        DrawRectangleRec(rect,RED);
+        //DrawRectangleRec(rect,RED);
         DrawTexture(getImg(), getCurrentPos().x, getCurrentPos().y, WHITE);
     }
 
@@ -66,11 +68,6 @@ public:
     }
 
     void removeHealth(char pHealtErease) {
-        std::cout << int(health) << "MUERTO\n";
-                
         if (health > 0) health -= pHealtErease;
-        else std::cout << "MUERTO\n";
-
-        std::cout << int(health) << "MUERTO\n";
     }
 };

@@ -11,7 +11,7 @@
 #define WIDGET_POS_Y 5
 #define WIDGET_SIZE 40
 
-enum Screens { MENU, PLAYER, GAME, END };
+enum Screens { MENU, PLAYER, GAME, WIN };
 enum Items { AIDKIT, SNEEKERS, KEY };
 enum Mapas { FUERA_MURALLAS, MURALLAS, DENTRO_CASTILLO, SALA_TRONO };
 
@@ -47,7 +47,7 @@ Texture2D sneekersImg;
 int framesCounter = 0;
 
 Screens actualScreen = GAME;
-Mapas actualLevel = MURALLAS;
+Mapas actualLevel = FUERA_MURALLAS;
 
 //Variables ventana y mousePosition
 bool globalRunning = true;
@@ -66,9 +66,10 @@ static void endScreen();
 
 static void checkCollisions();
 
-static Vector2 startCharacterPosition(bool isPlayer) {
+static void dropItems();
 
-    if (isPlayer) return Vector2{ 50, SCREEN_HEIGHT / 2 };
-    else 
-    return Vector2{ (float)GetRandomValue(50, SCREEN_WIDTH - 50), (float)GetRandomValue(50, SCREEN_HEIGHT - 50) };
+static bool checkItemInMap(Items pItem);
+
+static Vector2 startCharacterPosition() {
+    return Vector2{ (float)GetRandomValue(300, SCREEN_WIDTH - 100), (float)GetRandomValue(50, SCREEN_HEIGHT - 50) };
 }

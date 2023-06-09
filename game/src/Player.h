@@ -25,12 +25,13 @@ public:
         //UI
         posHealthWidget = { WIDGET_POS_X , WIDGET_POS_Y };
     }
-    Player(Texture2D pImg, char pDamage) {
+    Player(Texture2D pImg, char pDamage, Vector2 pPosition) {
         exp = 0;
         level = 1;
         attributePoints = 2;
         setImg(pImg);
         setDamage(pDamage);
+        setCurrentPos(pPosition);
 
         //UI
         posHealthWidget = { WIDGET_POS_X , WIDGET_POS_Y };
@@ -53,6 +54,8 @@ public:
 
     bool getIsGameOver() { return isGameOver; }
     void setGameOver(bool pIsGameOver) { isGameOver = pIsGameOver; }
+    
+    std::map<Items, int> getBackpack() { return backpack; }
 
     void movePalyer() {
 
@@ -79,8 +82,7 @@ public:
 
         Vector2 actualPosition = { getCurrentPos().x + (movement.x * getSpeed()) , getCurrentPos().y + (movement.y * getSpeed()) };
 
-        setCurrentPosX(actualPosition.x);
-        setCurrentPosY(actualPosition.y);
+        setCurrentPos({actualPosition.x, actualPosition.y});
         setRectangle({ getCurrentPos().x, getCurrentPos().y, 70, 70 });
 
     }

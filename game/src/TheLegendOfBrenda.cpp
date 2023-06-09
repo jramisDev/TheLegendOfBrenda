@@ -63,7 +63,7 @@ int main() {
                 gameScreen();
 
             }break;
-            case END: {
+            case WIN: {
 
                 endScreen();
 
@@ -110,9 +110,7 @@ void initApp() {
     game[2] = LevelData(mapaDentroCastillo, "Castillo");
     game[3] = LevelData(mapaSalaTrono, "Sala Trono");
 
-    player = Player(playerImg, 1);
-    player.setCurrentPosX(100);
-    player.setCurrentPosY(150);
+    player = Player(playerImg, 1, {100, 150});
     enemy = CharacterBase(trapImg,1,1);
     aidKit = Item(aidKitImg, AIDKIT);
     accessKey = Item(keyImg, KEY);
@@ -127,8 +125,9 @@ void mainScreen() {
     DrawText("PRESS ENTER to GAME", SCREEN_WIDTH / 2 - MeasureText("PRESS ENTER to GAME", 20) / 2, 150, 20, DARKBLUE);
 
     DrawText("CONTROLS", SCREEN_WIDTH / 2 - MeasureText("CONTROLS", 20) / 2, 200, 20, BLACK);
-    DrawText("LEFT MOUSE button to MOVE to LOCATION", SCREEN_WIDTH / 2 - MeasureText("LEFT MOUSE button to MOVE to LOCATION", 15) / 2, 225, 15, BLACK);
-    DrawText("PRESS I key to CUSTOM player", SCREEN_WIDTH / 2 - MeasureText("PRESS I or SCPAES key OP CUSTOM player", 15) / 2, 250, 15, BLACK);
+    DrawText("AWSD key to MOVE", SCREEN_WIDTH / 2 - MeasureText("AWSD key to MOVE", 15) / 2, 225, 15, BLACK);
+    DrawText("PRESS I key to CUSTOM player", SCREEN_WIDTH / 2 - MeasureText("PRESS I key to CUSTOM player", 15) / 2, 250, 15, BLACK);
+    DrawText("Pick up the key", SCREEN_WIDTH / 2 - MeasureText("Pick up the key", 15) / 2, 275, 15, BLACK);
   
     if (IsKeyDown(KEY_ENTER)) actualScreen = PLAYER;
 
@@ -140,19 +139,17 @@ void gameScreen() {
 
     //Fondo
     game[actualLevel].drawLevel();
-
-    //std::cout << "\nHoliii: " << actualLevel;
+    game[actualLevel].drawNameLevel();
 
     //Movimiento del personaje
     player.movePalyer();
 
-
     //Dibujamos elemento
-    player.drawUI();
+    player.drawUI();  
+
+    dropItems();
+
     enemy.drawEnemy();
-    aidKit.drawItem();
-    accessKey.drawItem();
-    sneekers.drawItem();
     player.drawPlayer();
 
     //Gestionamos las colisiones con los diferentes elementos
@@ -179,7 +176,6 @@ void endScreen() {
         DrawText("Game over!", SCREEN_WIDTH / 2 - MeasureText("Game over!", 40) / 2, SCREEN_HEIGHT / 2 - 40, 40, BLACK);
     }
 
-
     return;
 }
 
@@ -187,24 +183,32 @@ void checkCollisions() {
 
     //Colision vida
     if (CheckCollisionRecs(player.getRectangle(), aidKit.getRectangle())) {
-        player.addHealth();
-        player.addExp(aidKit.getExp());
-        aidKit.removeItem();
+       // if (checkItemInMap(AIDKIT)) {
+            player.addHealth();
+            player.addExp(aidKit.getExp());
+            aidKit.removeItem();
+            std::cout << "Cojo vida";
+        //}
     }
 
     //Colision llave
     if (CheckCollisionRecs(player.getRectangle(), accessKey.getRectangle())) {
-        player.addExp(accessKey.getExp());
-        player.addItemToBackpack(KEY, 1);
-        accessKey.removeItem();
+        //if (checkItemInMap(AIDKIT)) {
+            player.addExp(accessKey.getExp());
+            player.addItemToBackpack(KEY, 1);
+            accessKey.removeItem();
+            std::cout << "Cojo llave";
+        //}
     }
 
     //Colision zapatillas
     if (CheckCollisionRecs(player.getRectangle(), sneekers.getRectangle())) {
-        player.setSpeed(player.getSpeed() * 2);
-        player.addItemToBackpack(SNEEKERS, 1);
-        player.addExp(sneekers.getExp());
-        sneekers.removeItem();
+        //if (checkItemInMap(AIDKIT)) {
+            player.setSpeed(player.getSpeed() * 2);
+            player.addItemToBackpack(SNEEKERS, 1);
+            player.addExp(sneekers.getExp());
+            sneekers.removeItem();
+        //}
     }
 
     if (framesCounter >= 30) {
@@ -219,10 +223,76 @@ void checkCollisions() {
 
     //Colision exit zone
     if (CheckCollisionRecs(player.getRectangle(), game[actualLevel].getRectangle())) {
-        std::cout << "\nNivel antes: " << actualLevel;
-        actualLevel >> actualLevel;
-        std::cout << "\nNivel despues: " << actualLevel;
-        player.setCurrentPosX(100);
+
+        if (actualLevel == int(DENTRO_CASTILLO)) {
+
+            std::map<Items, int>::iterator it;
+
+            if (player.getBackpack().count(KEY)) {
+                actualLevel = Mapas(actualLevel + 1);
+                player.setCurrentPos({ 100, 150 });
+            }
+
+        } else if (actualLevel != int(SALA_TRONO)) {
+
+             actualLevel = Mapas(actualLevel + 1);
+        player.setCurrentPos({ 100, 150 });
+             player.setCurrentPos({ 100, 150 });
+
+        } else {
+            actualScreen = WIN;
+        }
+
+    }
+}
+
+
+void dropItems() {
+
+    switch (actualLevel) {
+    case FUERA_MURALLAS:
+        sneekers.drawItem();
+        break;
+    case MURALLAS:
+        aidKit.drawItem();
+        break;
+    case DENTRO_CASTILLO:
+        accessKey.drawItem();
+        break;
+    case SALA_TRONO:
+        aidKit.drawItem();
+        break;
+    }
+}
+
+bool checkItemInMap(Items pItem) {
+
+    bool check = false;
+
+
+    switch (actualLevel) {
+    case FUERA_MURALLAS:
+        if (pItem == SNEEKERS) check = true;
+        std::cout << "\nNivel 0 Fuera murallas: " << int(actualLevel) << " Item: " << int(pItem) << " return: " << check;
+        break;
+    case MURALLAS:
+        if (pItem == AIDKIT) check =  true;
+        std::cout << "\nNivel 1 Murallas: " << int(actualLevel) << " Item: " << int(pItem) << " return: " << check;
+        break;
+    case DENTRO_CASTILLO:
+        if (pItem == KEY) check =  true;
+        std::cout << "\nNivel 2 Dentro Castillo: " << int(actualLevel) << " Item: " << int(pItem) << " return: " << check;
+        break;
+    case SALA_TRONO:
+        if (pItem == AIDKIT) check = true;
+        std::cout << "\nNivel 3 Sala trono: " << int(actualLevel) << " Item: " << int(pItem) << " return: " << check;
+        break;
+    default:
+        return check = false;
+        break;
     }
 
+    
+
+    return check;
 }

@@ -20,15 +20,15 @@ public:
 
 	char* getNombreMapa() { return nombreMapa; }
 
-	//Vector2 getCurrentPos() { return currentPos; }
-	//void setCurrentPosX(float pNewPosition) { currentPos.x = pNewPosition; }
-	//void setCurrentPosY(float pNewPosition) { currentPos.y = pNewPosition; }
-
 	Rectangle getRectangle() { return rect; }
 	void setRectangle(Rectangle pRectangle) { rect = pRectangle; }
 
 	void drawLevel() {
 		DrawTexture(img, 0, 0, WHITE);	
+	}
+
+	void drawNameLevel() {
+		DrawText(getNombreMapa(), 10, SCREEN_HEIGHT-25, 25, BLACK);
 	}
 
 	void drawExit(){

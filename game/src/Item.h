@@ -16,14 +16,14 @@ class Item {
 public:
 	Item() {
 		exp = 10;
-		currentPos = startCharacterPosition(false);
+		currentPos = startCharacterPosition();
 		img = aidKitImg;
 		rect = { currentPos.x,currentPos.y, 40, 40 };
 		item = {AIDKIT};
 	};
 	Item(Texture2D pImg, Items pItem) {
 		exp = 10;
-		currentPos = startCharacterPosition(false);
+		currentPos = startCharacterPosition();
 		rect = { currentPos.x,currentPos.y, 40, 40 };
 		img = pImg;
 		item = pItem;
@@ -34,6 +34,7 @@ public:
 	char getExp() { return exp; }
 
 	Vector2 getCurrentPos() { return currentPos; }
+	void setCurrentPos(Vector2 pPosition) { currentPos = pPosition; }
 
 	Rectangle getRectangle() { return rect; }
 
